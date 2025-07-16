@@ -8,18 +8,20 @@ const SECRET_KEY = 'test';
 
 // Registration Route
 router.post('/register', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, email, password } = req.body;
 
   try {
     // Check if username already exists
     const existingUser = await User.findOne({ where: { username } });
+    
     if (existingUser) return res.status(400).json({ message: 'Username already exists' });
 
+    console.log("existingUser", existingUser);
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create user
-    const newUser = await User.create({ username, password: hashedPassword });
+    const newUser = await User.create({ username, email, password: hashedPassword });
     res.status(201).json({ message: 'User registered successfully', user: newUser.username });
   } catch (error) {
     res.status(500).json({ message: 'Registration error', error });
@@ -42,6 +44,16 @@ router.post('/login', async (req, res) => {
     // Generate JWT
     const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
     res.json({ token });
+  } catch (error) {
+    res.status(500).json({ message: 'Login error', error });
+  }
+});
+
+router.get('/users', async (req, res) => {
+  try {
+    // Find user
+    const users = await User.findAll()
+    res.status(201).json({ message: 'User List', users: users });
   } catch (error) {
     res.status(500).json({ message: 'Login error', error });
   }

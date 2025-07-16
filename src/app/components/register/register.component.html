@@ -1,0 +1,21 @@
+<form (ngSubmit)="onRegister()" autocomplete="off">
+    <input [(ngModel)]="form.username" name="username" placeholder="Username"
+    minlength="3" #username="ngModel" required>
+    <div *ngIf="username.invalid && username.touched" class="error-message">
+        <small *ngIf="username.errors?.['required']">Username is required.</small>
+        <small *ngIf="username.errors?.['minlength']">Username must be at least 3 characters long.</small>
+    </div>
+    <input [(ngModel)]="form.email" name="email" placeholder="Email"
+    email #email="ngModel" required>
+    <div *ngIf="email.invalid && email.touched" class="error-message">
+        <small *ngIf="email.errors?.['required']">Email is required.</small>
+        <small *ngIf="email.errors?.['email']">Please enter a valid email address.</small>
+    </div>
+    <input [(ngModel)]="form.password" name="password" placeholder="Password"
+    #password="ngModel" type="password" minlength="6" required>
+    <div *ngIf="password.invalid && password.touched" class="error-message">
+        <small *ngIf="password.errors?.['required']">Password is required.</small>
+        <small *ngIf="password.errors?.['minlength']">Password must be at least 6 characters long.</small>
+    </div>
+    <button type="submit">Register</button>
+  </form>

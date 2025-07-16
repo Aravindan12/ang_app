@@ -1,0 +1,22 @@
+<div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>MyApp</h2>
+      <nav>
+        <ul>
+          <li><a routerLink="/users" routerLinkActive="active">Dashboard</a></li>
+          <li><a routerLink="/profile" routerLinkActive="active">Profile</a></li>
+          <li><a routerLink="/settings" routerLinkActive="active">Settings</a></li>
+          <li><a routerLink="/logout">Logout</a></li>
+        </ul>
+      </nav>
+    </aside>
+  
+    <!-- Main Content -->
+    <main class="main-content">
+      <h1>Welcome to the Home Page</h1>
+      <p>This is the main content area.</p>
+      <router-outlet />
+    </main>
+  </div>
+  
